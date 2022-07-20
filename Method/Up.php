@@ -24,7 +24,7 @@ use GDO\Core\GDT_JSON;
  */
 final class Up extends Method
 {
-    public function showInSitemap() { return false; }
+    public function showInSitemap() : bool { return false; }
     public function isUserRequired() : bool { return true; }
     
 	public function gdoParameters() : array

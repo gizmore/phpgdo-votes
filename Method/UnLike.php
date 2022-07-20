@@ -24,7 +24,7 @@ use GDO\Votes\Module_Votes;
 class UnLike extends Method
 {
     public function isCLI() { return false; }
-    public function showInSitemap() { return false; }
+    public function showInSitemap() : bool { return false; }
     public function isUserRequired() : bool { return true; }
     
     public function gdoParameters() : array
