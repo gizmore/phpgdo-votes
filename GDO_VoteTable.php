@@ -39,12 +39,12 @@ class GDO_VoteTable extends GDO
 	/**
 	 * @return GDO_User
 	 */
-	public function getUser() { return $this->getValue('vote_user'); }
+	public function getUser() { return $this->gdoValue('vote_user'); }
 	public function getUserID() { return $this->gdoVar('vote_user'); }
 	/**
 	 * @return GDO
 	 */
-	public function getObject() { return $this->getValue('vote_object'); }
+	public function getObject() { return $this->gdoValue('vote_object'); }
 	public function getObjectID() { return $this->gdoVar('vote_object'); }
 	public function getIP() { return $this->gdoVar('vote_ip'); }
 	public function getScore() { return $this->gdoVar('vote_value'); }
