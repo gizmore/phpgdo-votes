@@ -26,7 +26,7 @@ use GDO\Core\GDT_CreatedBy;
  */
 class Like extends Method
 {
-    public function isCLI() { return false; }
+    public function isCLI() : bool { return false; }
     public function showInSitemap() : bool { return false; }
     public function isUserRequired() : bool { return true; }
 

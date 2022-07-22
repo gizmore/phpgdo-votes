@@ -1,6 +1,9 @@
-<?php /** @var $field \GDO\Vote\GDT_VoteRating **/
+<?php
+
 use GDO\UI\GDT_Badge;
 use GDO\UI\GDT_Tooltip;
+use GDO\Votes\GDT_VoteRating;
+/** @var $field GDT_VoteRating **/
 $gdo = $field->getVoteObject(); ?>
 <span class="<?=$field->name;?>-vote-rating-<?= $gdo->getID(); ?>">
 <?php
