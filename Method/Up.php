@@ -117,7 +117,7 @@ final class Up extends Method
 					])
 				);
 			}
-			return Website::redirectMessage('msg_voted');
+			return $this->redirectMessage('msg_voted');
 		}
 		return $this->error('err_vote_ip');
 	}
