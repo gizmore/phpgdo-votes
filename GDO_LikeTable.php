@@ -20,7 +20,7 @@ class GDO_LikeTable extends GDO
 	public function gdoLikeCooldown() { return 60*60*24; }
 	
 	public function gdoCached() : bool { return false; }
-	public function gdoAbstract() { return $this->gdoLikeObjectTable() === null; }
+	public function gdoAbstract() : bool { return $this->gdoLikeObjectTable() === null; }
 	public function gdoColumns() : array
 	{
 		return [

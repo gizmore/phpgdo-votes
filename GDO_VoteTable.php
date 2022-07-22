@@ -25,7 +25,7 @@ class GDO_VoteTable extends GDO
 	public function gdoVoteCooldown() { return 60*60*24; }
 	public function gdoVoteGuests() { return true; }
 	public function gdoCached() : bool { return false; }
-	public function gdoAbstract() { return $this->gdoVoteObjectTable() === null; }
+	public function gdoAbstract() : bool { return $this->gdoVoteObjectTable() === null; }
 	public function gdoColumns() : array
 	{
 		return array(
