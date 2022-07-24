@@ -16,7 +16,7 @@ class GDT_LikeButton extends GDT_Button
 		$this->icon('like');
 	}
 	
-	public function gdo(GDO $gdo=null)
+	public function gdo(GDO $gdo=null) : self
 	{
 		parent::gdo($gdo);
 		$likeObject = $this->getLikeObject();
@@ -57,7 +57,7 @@ class GDT_LikeButton extends GDT_Button
 	    return $this;
 	}
 	
-	public function configJSON()
+	public function configJSON() : array
 	{
 		return array_merge(parent::configJSON(), [
 			'count' => $this->getLikeObject()->getLikeCount(),
