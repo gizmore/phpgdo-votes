@@ -20,7 +20,7 @@ return [
 'votepopup_rating' => 'Bewertung: %s',
 'vote_count' => '%s Stimme(n)',
 ####
-'btn_likes' => 'Likes',
+'likes' => 'Likes',
 'num_likes' => 'Likes: %s',
 'meta_votes' => '%s mit %s Stimme(n)',
 'err_cannot_like' => 'Sie können dies nicht liken.',

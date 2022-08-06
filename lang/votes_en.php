@@ -20,7 +20,7 @@ return [
 'votepopup_rating' => 'Rating: %s',
 'vote_count' => '%s votes',
 ####
-'btn_likes' => 'Likes',
+'likes' => 'Likes',
 'num_likes' => 'Likes: %s',
 'meta_votes' => '%s with %s votes',
 'err_cannot_like' => 'You cannot like this.',

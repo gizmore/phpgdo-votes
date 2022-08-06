@@ -14,7 +14,7 @@ class GDO_LikeTable extends GDO
 	/**
 	 * @return GDO
 	 */
-	public function gdoLikeObjectTable() {}
+	public function gdoLikeObjectTable() { return null; }
 	public function gdoLikeForGuests() { return true; }
 	public function gdoMaxLikeCount() { return 1; }
 	public function gdoLikeCooldown() { return 60*60*24; }
