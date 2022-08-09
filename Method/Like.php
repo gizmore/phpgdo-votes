@@ -48,7 +48,7 @@ class Like extends Method
 	
 	public function getLikeTableClass()
 	{
-	    return Common::getRequestString('gdo');
+	    return $this->gdoParameterVar('gdo');
 	}
 	
 	public function execute()
