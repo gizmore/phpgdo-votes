@@ -45,7 +45,7 @@ class GDT_LikeButton extends GDT_Button
 		return $this->getLikeObject()->gdoLikeTable();
 	}
 	
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
 		return GDT_Template::php('Vote', 'cell/like_button.php', ['field'=>$this]);
 	}
@@ -67,7 +67,7 @@ class GDT_LikeButton extends GDT_Button
 	public function renderJSON()
 	{
 	    return [
-	        'html' => $this->renderCell(),
+	        'html' => $this->renderHTML(),
 	        'count' => $this->getLikeObject()->getLikeCount(),
 	    ];
 	}

@@ -73,7 +73,7 @@ final class GDT_VoteSelection extends GDT
 	    return $this->gdo->gdoVoteAllowed($user);
 	}
 	
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
 		return GDT_Template::php('Vote', 'cell/vote_selection.php', ['field'=>$this]);
 	}

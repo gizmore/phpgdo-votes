@@ -22,7 +22,7 @@ class GDT_VoteCount extends GDT_UInt
 		return $this->gdo;
 	}
 	
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
 		return GDT_Template::php('Vote', 'cell/vote_count.php', ['field'=>$this]);
 	}

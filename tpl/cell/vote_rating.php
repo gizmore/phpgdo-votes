@@ -16,7 +16,7 @@ if ($votesHave >= $votesNeeded)
 }
 else 
 {
-	echo GDT_Tooltip::make()->addClass('vote-rating')->tooltip('tt_gdo_vote_open', [$votesHave, $votesNeeded])->renderCell();
+	echo GDT_Tooltip::make()->addClass('vote-rating')->tooltip('tt_gdo_vote_open', [$votesHave, $votesNeeded])->renderHTML();
 }
 ?>
 </span>

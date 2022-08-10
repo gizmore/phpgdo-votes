@@ -6,8 +6,8 @@ $field instanceof GDT_VotePopup;
 $gdo = $field->gdo;
 $id = $gdo->gdoTableName().$gdo->getID();
 
-$votes = $gdo->getVoteCountColumn()->renderCell();
-$rating = $gdo->getVoteRatingColumn()->renderCell();
+$votes = $gdo->getVoteCountColumn()->renderHTML();
+$rating = $gdo->getVoteRatingColumn()->renderHTML();
 
 
 $voteButton = sprintf('<md-button ng-click="showDialogId(\'#%s\', $event)" class="md-icon-button">', $id);
@@ -24,7 +24,7 @@ echo $voteButton;
 	  <p>
 		<?= t('votepopup_rating', [$rating]); ?><br/>
 		<?= t('votepopup_votes', [$votes]); ?><br/>
-		<?= GDT_VoteSelection::make()->gdo($gdo)->renderCell(); ?>
+		<?= GDT_VoteSelection::make()->gdo($gdo)->renderHTML(); ?>
 	  </p>
 	</md-dialog>
   </div>

@@ -25,7 +25,7 @@ final class GDT_VoteRating extends GDT_Decimal
 		$this->initial('0');
 	}
 
-	public function renderCell() : string
+	public function renderHTML() : string
 	{
 		return GDT_Template::php('Vote', 'cell/vote_rating.php', ['field'=>$this]);
 	}
