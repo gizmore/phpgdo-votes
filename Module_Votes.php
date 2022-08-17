@@ -2,9 +2,16 @@
 namespace GDO\Votes;
 
 use GDO\Core\GDO_Module;
-use GDO\Core\Application;
 use GDO\Core\GDT_UInt;
 
+/**
+ * Voting and like module.
+ * 
+ * @link https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
+ * 
+ * @author gizmore
+ * @version 7.0.1
+ */
 final class Module_Votes extends GDO_Module
 {
 	public int $priority = 25;
@@ -13,18 +20,11 @@ final class Module_Votes extends GDO_Module
 	
 	public function onIncludeScripts() : void
 	{
-	    if (Application::instance()->hasTheme('material'))
-	    {
-    		if (module_enabled('Angular'))
-    		{
-    			$this->addJS('js/gwf-vote-ctrl.js');
-    		}
-	    }
-	    elseif (module_enabled('JQuery'))
+		$this->addCSS('css/gwf-votes.css');
+	    if (module_enabled('JQuery'))
 		{
 			$this->addJS('js/gdo-vote.js');
 		}
-		$this->addCSS('css/gwf-votes.css');
 	}
 	
 	/**
@@ -32,9 +32,9 @@ final class Module_Votes extends GDO_Module
 	 */
 	public function getUserConfig()
 	{
-		return array(
+		return [
 			GDT_UInt::make('likes')->initial('0'),
-		);
+		];
 	}
 
 }
