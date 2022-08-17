@@ -20,7 +20,7 @@ final class GDT_VotePopup extends GDT_Button
 	
 	public function renderHTML() : string
 	{
-		return GDT_Template::php('Vote', 'cell/vote_popup.php', ['field'=>$this]);
+		return GDT_Template::php('Votes', 'cell/vote_popup.php', ['field'=>$this]);
 	}
 	
 }

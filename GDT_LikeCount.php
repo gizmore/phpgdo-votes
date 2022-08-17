@@ -30,7 +30,7 @@ class GDT_LikeCount extends GDT_VoteCount
 	
 	public function renderHTML() : string
 	{
-		return GDT_Template::php('Vote', 'cell/like_count.php', ['field'=>$this]);
+		return GDT_Template::php('Votes', 'cell/like_count.php', ['field'=>$this]);
 	}
 	
 }

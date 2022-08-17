@@ -23,7 +23,7 @@ class GDT_LikeButton extends GDT_Button
 		$likeTable = $this->getLikeTable();
 		$hasLiked = $likeObject->hasLiked(GDO_User::current());
 		$method = $hasLiked ? 'UnLike' : 'Like';
-		$this->href = href('Vote', $method, "&gdo={$likeTable->gdoClassName()}&id={$likeObject->getID()}");
+		$this->href = href('Votes', $method, "&gdo={$likeTable->gdoClassName()}&id={$likeObject->getID()}");
 // 		$this->editable(!$gdo->hasLiked(GDO_User::current()));
 		return $this;
 	}
@@ -47,7 +47,7 @@ class GDT_LikeButton extends GDT_Button
 	
 	public function renderHTML() : string
 	{
-		return GDT_Template::php('Vote', 'cell/like_button.php', ['field'=>$this]);
+		return GDT_Template::php('Votes', 'cell/like_button.php', ['field'=>$this]);
 	}
 	
 	public $dislike = false;

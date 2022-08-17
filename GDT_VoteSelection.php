@@ -50,7 +50,7 @@ final class GDT_VoteSelection extends GDT
 	
 	public function hrefVote()
 	{
-		return href('Vote', 'Up', '&gdo='.urlencode($this->voteTable()->gdoClassName()).'&id='.$this->gdo->getID());
+		return href('Votes', 'Up', '&gdo='.urlencode($this->voteTable()->gdoClassName()).'&id='.$this->gdo->getID());
 	}
 
 	public function configJSON() : array
@@ -75,6 +75,6 @@ final class GDT_VoteSelection extends GDT
 	
 	public function renderHTML() : string
 	{
-		return GDT_Template::php('Vote', 'cell/vote_selection.php', ['field'=>$this]);
+		return GDT_Template::php('Votes', 'cell/vote_selection.php', ['field'=>$this]);
 	}
 }
