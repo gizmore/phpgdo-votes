@@ -18,14 +18,15 @@ use GDO\Votes\Module_Votes;
 /**
  * The method to like an item.
  * @author gizmore
- * @version 6.10.6
+ * @version 7.0.1
  * @since 5.0.0
  */
 class UnLike extends Method
 {
     public function isCLI() : bool { return false; }
-    public function isShownInSitemap() : bool { return false; }
+    public function isTrivial() : bool { return false; }
     public function isUserRequired() : bool { return true; }
+    public function isShownInSitemap() : bool { return false; }
     
     public function gdoParameters() : array
 	{
@@ -35,15 +36,12 @@ class UnLike extends Method
 	    ];
 	}
 	
-	/**
-	 * @return GDO_LikeTable
-	 */
-	public function getLikeTable()
+	public function getLikeTable() : GDO_LikeTable
 	{
 	    return call_user_func([$this->getLikeTableClass(), 'table']);
 	}
 	
-	public function getLikeTableClass()
+	public function getLikeTableClass() : string
 	{
 	    return $this->gdoParameterVar('gdo');
 	}
