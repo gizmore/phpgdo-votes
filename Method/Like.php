@@ -47,7 +47,7 @@ class Like extends Method
 	    return call_user_func([$this->getLikeTableClass(), 'table']);
 	}
 	
-	public function getLikeTableClass()
+	public function getLikeTableClass() : string
 	{
 	    return $this->gdoParameterVar('gdo');
 	}
