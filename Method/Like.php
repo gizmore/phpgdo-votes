@@ -31,7 +31,12 @@ class Like extends Method
     public function isUserRequired() : bool { return true; }
     public function isShownInSitemap() : bool { return false; }
     
-	public function gdoParameters() : array
+    public function getMethodTitle() : string
+    {
+    	return t('votes');
+    }
+    
+    public function gdoParameters() : array
 	{
 		return [
 			GDT_String::make('gdo')->notNull(),

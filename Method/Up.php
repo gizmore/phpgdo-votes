@@ -27,6 +27,11 @@ final class Up extends Method
     public function isShownInSitemap() : bool { return false; }
     public function isUserRequired() : bool { return true; }
     
+    public function getMethodTitle() : string
+    {
+    	return t('votes');
+    }
+    
 	public function gdoParameters() : array
 	{
 		return [
