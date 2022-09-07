@@ -7,19 +7,18 @@ use GDO\Core\GDO;
 use GDO\Net\GDT_IP;
 use GDO\Core\GDT_Response;
 use GDO\User\GDO_User;
-use GDO\Util\Common;
-use GDO\Votes\GDO_VoteTable;
-use GDO\Votes\WithVotes;
 use GDO\Core\Application;
 use GDO\Core\Website;
 use GDO\Date\Time;
 use GDO\Core\GDT_JSON;
+use GDO\Core\GDT_UInt;
+use GDO\Votes\GDO_VoteTable;
 
 /**
  * Vote on an item.
  * Check for IP duplicates.
  * @author gizmore
- * @version 6.10.6
+ * @version 7.0.1
  * @since 5.0.0
  */
 final class Up extends Method
@@ -36,6 +35,8 @@ final class Up extends Method
 	{
 		return [
 			GDT_String::make('gdo')->notNull(),
+			GDT_UInt::make('id')->notNull(),
+			GDT_UInt::make('rate')->min(1)->max(10)->notNull(),
 		];
 	}
 	
@@ -44,27 +45,27 @@ final class Up extends Method
 		$user = GDO_User::current();
 		
 		# Get VoteTable, e.g. LinkVote
-		$class= Common::getRequestString('gdo');
+		$class = $this->gdoParameterVar('gdo');
 		if (!@class_exists($class, true))
 		{
 			return $this->error('err_vote_gdo');
 		}
-		if (!is_subclass_of($class, 'GDO\Vote\GDO_VoteTable'))
+		if (!is_subclass_of($class, GDO_VoteTable::class))
 		{
 			return $this->error('err_vote_table');
 		}
 		$table = GDO::tableFor($class);
-		$table instanceof GDO_VoteTable;
+// 		$table instanceof GDO_VoteTable;
 		
 		# Get GDO table, e.g. Link
 		$objects = $table->gdoVoteObjectTable();
-		$objects instanceof GDO;
+// 		$objects instanceof GDO;
 		
 		# Get GDO row, e.g. Link
 		/**
 		 * @var GDO $object
 		 */
-		$object = $objects->find(Common::getRequestString('id'));
+		$object = $objects->find($this->gdoParameterVar('id'));
 		
 		if ($user->isGuest() && (!$table->gdoVoteGuests()))
 		{
@@ -77,7 +78,7 @@ final class Up extends Method
 		}
 		
 		# Check rate value
-		if ( (!($value = Common::getRequestInt('rate'))) ||
+		if ( (!($value = $this->gdoParameterValue('rate'))) ||
 			 (($value < 1) || ($value > $table->gdoVoteMax())) )
 		{
 			return $this->error('err_rate_param_between', [1, $table->gdoVoteMax()]);
@@ -88,7 +89,7 @@ final class Up extends Method
 			$object->getID(), GDT_IP::current(), $user->getID(), $cooldown);
 		$count = $table->countWhere($where);
 		
-		if ($count == 0)
+		if ($count === 0)
 		{
 			# Vote
 			$vote = $class::blank([
@@ -97,13 +98,13 @@ final class Up extends Method
 				'vote_ip' => GDT_IP::current(),
 				'vote_value' => $value,
 			]);
-			$vote instanceof GDO_VoteTable;
+// 			$vote instanceof GDO_VoteTable;
 			$vote->replace();
 			
 			# Update cache
 			$object->setVar('own_vote', $value);
 			$object->updateVotes();
-			$object instanceof WithVotes;
+// 			$object instanceof WithVotes;
 			$rateColumn = $object->getVoteRatingColumn();
 			
 			if (Application::instance()->isAjax())

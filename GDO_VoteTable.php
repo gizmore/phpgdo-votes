@@ -3,11 +3,11 @@ namespace GDO\Votes;
 
 use GDO\Core\GDO;
 use GDO\Core\GDT_CreatedAt;
-use GDO\Core\GDT_Int;
 use GDO\Core\GDT_Object;
 use GDO\Net\GDT_IP;
 use GDO\User\GDT_User;
 use GDO\User\GDO_User;
+use GDO\Core\GDT_UInt;
 
 /**
  * Override gdoVoteObjectTable with, e.g. return SomeGDO::table();
@@ -28,13 +28,13 @@ class GDO_VoteTable extends GDO
 	public function gdoAbstract() : bool { return $this->gdoVoteObjectTable() === null; }
 	public function gdoColumns() : array
 	{
-		return array(
+		return [
 			GDT_User::make('vote_user')->primary(),
 			GDT_Object::make('vote_object')->table($this->gdoVoteObjectTable())->primary(),
 			GDT_IP::make('vote_ip')->notNull(),
-			GDT_Int::make('vote_value')->notNull()->unsigned()->bytes(1),
+			GDT_UInt::make('vote_value')->notNull()->bytes(1),
 			GDT_CreatedAt::make('vote_created'),
-		);
+		];
 	}
 	/**
 	 * @return GDO_User
