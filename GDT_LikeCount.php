@@ -10,8 +10,7 @@ use GDO\Core\GDT_Template;
  */
 class GDT_LikeCount extends GDT_VoteCount
 {
-	public $writable = false;
-	public $editable = false;
+	public bool $writeable = false;
 	
 	public function defaultLabel() : self { return $this->label('likes'); }
 

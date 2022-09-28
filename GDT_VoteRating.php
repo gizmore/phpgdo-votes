@@ -23,7 +23,6 @@ final class GDT_VoteRating extends GDT_Decimal
 	{
 		parent::__construct();
 	    $this->writeable = false;
-	    $this->editable = false;
 		$this->digits(2, 2);
 		$this->notNull();
 		$this->initial('0');
