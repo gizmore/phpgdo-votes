@@ -21,6 +21,7 @@ class GDO_LikeTable extends GDO
 	
 	public function gdoCached() : bool { return false; }
 	public function gdoAbstract() : bool { return $this->gdoLikeObjectTable() === null; }
+	public function isTestable() : bool { return !$this->gdoAbstract(); }
 	public function gdoColumns() : array
 	{
 		return [
