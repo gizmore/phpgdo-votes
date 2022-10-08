@@ -123,7 +123,7 @@ class UnLike extends Method
 			}
 		}
 
-		Website::redirectBack();
+		GDT_Redirect::toBack();
 
 		if (Application::instance()->isCLI())
 		{

@@ -134,7 +134,7 @@ class Like extends Method
 		    Module_Votes::instance()->increaseUserSetting($otherUser, 'likes');
 		}
 		
-		Website::redirectBack();
+		GDT_Redirect::toBack();
 		
 		if (Application::instance()->isCLI())
 		{
