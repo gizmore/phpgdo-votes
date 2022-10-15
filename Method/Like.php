@@ -6,9 +6,9 @@ use GDO\Core\GDT_Object;
 use GDO\Core\GDT_String;
 use GDO\Core\Method;
 use GDO\Core\GDO;
-use GDO\Core\Website;
 use GDO\Net\GDT_IP;
 use GDO\Core\GDT_Response;
+use GDO\UI\GDT_Redirect;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Votes\GDO_LikeTable;
@@ -134,16 +134,14 @@ class Like extends Method
 		    Module_Votes::instance()->increaseUserSetting($otherUser, 'likes');
 		}
 		
-		GDT_Redirect::toBack();
-		
 		if (Application::instance()->isCLI())
 		{
 		    return $this->message('msg_liked');
 		}
 		
 		return GDT_Response::makeWith(
-			GDT_LikeButton::make('likes')->gdo($object)
+			GDT_LikeButton::make('likes')->gdo($object),
+			GDT_Redirect::to(GDT_Redirect::hrefBack()),
 		);
-		
 	}
 }
