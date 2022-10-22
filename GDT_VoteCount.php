@@ -17,6 +17,11 @@ class GDT_VoteCount extends GDT_UInt
 {
 	use WithGDO;
 	
+	public function isTestable(): bool
+	{
+		return false;
+	}
+	
 	public function defaultLabel() : self
 	{
 		return $this->label('votes');
