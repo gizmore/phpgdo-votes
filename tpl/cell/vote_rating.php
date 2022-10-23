@@ -1,11 +1,13 @@
 <?php
-
+namespace GDO\Votes\tpl\cell;
 use GDO\UI\GDT_Badge;
 use GDO\UI\GDT_Tooltip;
 use GDO\Votes\GDT_VoteRating;
 /** @var $field GDT_VoteRating **/
-$gdo = $field->getVoteObject(); ?>
-<span class="<?=$field->name;?>-vote-rating-<?= $gdo->getID(); ?>">
+$gdo = $field->getVoteObject();
+if ($gdo && $gdo->isPersisted()) :
+?>
+<span id="<?=$field->getName()?>-vote-rating-<?=$gdo->getID()?>">
 <?php
 $votesNeeded = $gdo->gdoVoteTable()->gdoVotesBeforeOutcome();
 $votesHave = $gdo->getVoteCount();
@@ -20,3 +22,5 @@ else
 }
 ?>
 </span>
+<?php
+endif;

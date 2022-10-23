@@ -5,6 +5,7 @@ use GDO\Core\GDT_Template;
 use GDO\Core\GDT;
 use GDO\UI\WithLabel;
 use GDO\User\GDO_User;
+use GDO\Core\WithGDO;
 
 /**
  * 
@@ -13,6 +14,7 @@ use GDO\User\GDO_User;
  */
 final class GDT_VoteSelection extends GDT
 {
+	use WithGDO;
 	use WithLabel;
 
 	public function defaultLabel() : self

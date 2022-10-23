@@ -5,7 +5,7 @@ use GDO\Votes\GDT_VoteCount;
 /** @var $field GDT_VoteCount **/
 $gdo = $field->getVoteObject(); ?>
 <div class="gdt-votecount"
- id="<?=$field->name?>-vote-count-<?=$gdo->getID()?>">
+ id="<?=$field->getName()?>-vote-count-<?=$gdo->getID()?>">
 <?php
 $value = t('vote_count', [$gdo->getVoteCount()]);
 echo GDT_Badge::make()->addClass('vote-count')->var($value)->renderHTML();

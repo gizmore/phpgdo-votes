@@ -5,6 +5,7 @@ use GDO\Core\GDO;
 use GDO\Core\GDT_Template;
 use GDO\Core\GDT_Decimal;
 use GDO\Core\WithGDO;
+use GDO\Core\GDT;
 
 final class GDT_VoteRating extends GDT_Decimal
 {
@@ -30,6 +31,10 @@ final class GDT_VoteRating extends GDT_Decimal
 
 	public function renderHTML() : string
 	{
+		if (!isset($this->gdo))
+		{
+			return GDT::EMPTY_STRING;
+		}
 		return GDT_Template::php('Votes', 'cell/vote_rating.php', ['field'=>$this]);
 	}
 	
