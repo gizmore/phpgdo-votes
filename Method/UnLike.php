@@ -7,11 +7,11 @@ use GDO\Core\GDT_String;
 use GDO\Core\Method;
 use GDO\Core\GDO;
 use GDO\Core\GDT_Response;
+use GDO\UI\GDT_Redirect;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Votes\GDO_LikeTable;
 use GDO\Votes\GDT_LikeButton;
-use GDO\Core\Website;
 use GDO\Core\Application;
 use GDO\Votes\Module_Votes;
 
@@ -123,7 +123,7 @@ class UnLike extends Method
 			}
 		}
 
-		GDT_Redirect::toBack();
+		GDT_Redirect::to();
 
 		if (Application::instance()->isCLI())
 		{

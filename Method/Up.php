@@ -6,6 +6,7 @@ use GDO\Core\Method;
 use GDO\Core\GDO;
 use GDO\Net\GDT_IP;
 use GDO\Core\GDT_Response;
+use GDO\UI\GDT_Redirect;
 use GDO\User\GDO_User;
 use GDO\Core\Application;
 use GDO\Core\Website;
@@ -74,7 +75,7 @@ final class Up extends Method
 		
 		if (!$object->gdoVoteAllowed($user))
 		{
-		    return $this->error('err_vote_not_allowed')->addField(GDT_Redirect::toBack(5));
+		    return $this->error('err_vote_not_allowed')->addField(GDT_Redirect::to());
 		}
 		
 		# Check rate value
