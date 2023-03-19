@@ -11,7 +11,7 @@ final class GDT_VoteRating extends GDT_Decimal
 {
 	use WithGDO;
 	
-    public function defaultLabel() : self { return $this->label('rating'); }
+    public function defaultLabel(): static { return $this->label('rating'); }
 
     public function isDefaultAsc() : bool { return false; }
 	

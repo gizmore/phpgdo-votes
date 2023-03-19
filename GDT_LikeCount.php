@@ -12,7 +12,7 @@ class GDT_LikeCount extends GDT_VoteCount
 {
 	public bool $writeable = false;
 	
-	public function defaultLabel() : self { return $this->label('likes'); }
+	public function defaultLabel(): static { return $this->label('likes'); }
 
 	public function isTestable(): bool
 	{

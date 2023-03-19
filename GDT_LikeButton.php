@@ -8,7 +8,7 @@ use GDO\UI\GDT_Button;
 
 class GDT_LikeButton extends GDT_Button
 {
-	public function defaultLabel() : self { return $this->label('likes'); }
+	public function defaultLabel(): static { return $this->label('likes'); }
 	
 	protected function __construct()
 	{
@@ -16,7 +16,7 @@ class GDT_LikeButton extends GDT_Button
 		$this->icon('like');
 	}
 	
-	public function gdo(GDO $gdo=null) : self
+	public function gdo(GDO $gdo=null): static
 	{
 		parent::gdo($gdo);
 		$likeObject = $this->getLikeObject();

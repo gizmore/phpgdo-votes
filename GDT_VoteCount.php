@@ -22,7 +22,7 @@ class GDT_VoteCount extends GDT_UInt
 		return false;
 	}
 	
-	public function defaultLabel() : self
+	public function defaultLabel(): static
 	{
 		return $this->label('votes');
 	}

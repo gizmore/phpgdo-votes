@@ -17,7 +17,7 @@ final class GDT_VoteSelection extends GDT
 	use WithGDO;
 	use WithLabel;
 
-	public function defaultLabel() : self
+	public function defaultLabel(): static
 	{
 		return $this->label('vote');
 	}
