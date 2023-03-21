@@ -1,38 +1,40 @@
 <?php
 namespace GDO\Votes\Method;
 
-use GDO\Core\GDT_String;
-use GDO\Core\Method;
+use GDO\Core\Application;
 use GDO\Core\GDO;
-use GDO\Net\GDT_IP;
+use GDO\Core\GDT_JSON;
 use GDO\Core\GDT_Response;
+use GDO\Core\GDT_String;
+use GDO\Core\GDT_UInt;
+use GDO\Core\Method;
+use GDO\Date\Time;
+use GDO\Net\GDT_IP;
 use GDO\UI\GDT_Redirect;
 use GDO\User\GDO_User;
-use GDO\Core\Application;
-use GDO\Core\Website;
-use GDO\Date\Time;
-use GDO\Core\GDT_JSON;
-use GDO\Core\GDT_UInt;
 use GDO\Votes\GDO_VoteTable;
 
 /**
  * Vote on an item.
  * Check for IP duplicates.
- * @author gizmore
+ *
  * @version 7.0.1
  * @since 5.0.0
+ * @author gizmore
  */
 final class Up extends Method
 {
-    public function isShownInSitemap() : bool { return false; }
-    public function isUserRequired() : bool { return true; }
-    
-    public function getMethodTitle() : string
-    {
-    	return t('votes');
-    }
-    
-	public function gdoParameters() : array
+
+	public function isShownInSitemap(): bool { return false; }
+
+	public function isUserRequired(): bool { return true; }
+
+	public function getMethodTitle(): string
+	{
+		return t('votes');
+	}
+
+	public function gdoParameters(): array
 	{
 		return [
 			GDT_String::make('gdo')->notNull(),
@@ -40,11 +42,11 @@ final class Up extends Method
 			GDT_UInt::make('rate')->min(1)->max(10)->notNull(),
 		];
 	}
-	
+
 	public function execute()
 	{
 		$user = GDO_User::current();
-		
+
 		# Get VoteTable, e.g. LinkVote
 		$class = $this->gdoParameterVar('gdo');
 		if (!@class_exists($class, true))
@@ -57,39 +59,41 @@ final class Up extends Method
 		}
 		$table = GDO::tableFor($class);
 // 		$table instanceof GDO_VoteTable;
-		
+
 		# Get GDO table, e.g. Link
 		$objects = $table->gdoVoteObjectTable();
 // 		$objects instanceof GDO;
-		
+
 		# Get GDO row, e.g. Link
 		/**
 		 * @var GDO $object
 		 */
 		$object = $objects->find($this->gdoParameterVar('id'));
-		
+
 		if ($user->isGuest() && (!$table->gdoVoteGuests()))
 		{
-		    return $this->error('err_vote_guest');
+			return $this->error('err_vote_guest');
 		}
-		
+
 		if (!$object->gdoVoteAllowed($user))
 		{
-		    return $this->error('err_vote_not_allowed')->addField(GDT_Redirect::to());
+			return $this->error('err_vote_not_allowed')->addField(GDT_Redirect::to());
 		}
-		
+
 		# Check rate value
-		if ( (!($value = $this->gdoParameterValue('rate'))) ||
-			 (($value < 1) || ($value > $table->gdoVoteMax())) )
+		if (
+			(!($value = $this->gdoParameterValue('rate'))) ||
+			(($value < 1) || ($value > $table->gdoVoteMax()))
+		)
 		{
 			return $this->error('err_rate_param_between', [1, $table->gdoVoteMax()]);
 		}
-		
+
 		$cooldown = Time::getDate(Application::$TIME - $table->gdoVoteCooldown());
 		$where = sprintf("vote_object=%s AND vote_ip='%s' AND vote_user!=%s AND vote_created>='%s'",
 			$object->getID(), GDT_IP::current(), $user->getID(), $cooldown);
 		$count = $table->countWhere($where);
-		
+
 		if ($count === 0)
 		{
 			# Vote
@@ -101,13 +105,13 @@ final class Up extends Method
 			]);
 // 			$vote instanceof GDO_VoteTable;
 			$vote->replace();
-			
+
 			# Update cache
 			$object->setVar('own_vote', $value);
 			$object->updateVotes();
 // 			$object instanceof WithVotes;
 			$rateColumn = $object->getVoteRatingColumn();
-			
+
 			if (Application::instance()->isAjax())
 			{
 				$enough = $object->hasEnoughVotes();
@@ -116,7 +120,7 @@ final class Up extends Method
 				return GDT_Response::makeWith(
 					GDT_JSON::make()->value([
 						'message' => t('msg_voted'),
-					    'outcome' => $rateColumn->render() . $object->getVoteCountColumn()->render(),
+						'outcome' => $rateColumn->render() . $object->getVoteCountColumn()->render(),
 						'outcomeId' => $object->getVoteOutcomeId(),
 						'enough' => $enough,
 						'count' => $count,
@@ -128,5 +132,5 @@ final class Up extends Method
 		}
 		return $this->error('err_vote_ip');
 	}
-	
+
 }

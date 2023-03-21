@@ -5,25 +5,31 @@ use GDO\Core\GDT_Template;
 
 /**
  * A like count field.
- * 
+ *
  * @author gizmore
  */
 class GDT_LikeCount extends GDT_VoteCount
 {
+
 	public bool $writeable = false;
-	
-	public function defaultLabel(): static { return $this->label('likes'); }
+
+	public function defaultLabel(): self { return $this->label('likes'); }
 
 	public function isTestable(): bool
 	{
 		return false;
 	}
-	
+
+	public function renderHTML(): string
+	{
+		return GDT_Template::php('Votes', 'cell/like_count.php', ['field' => $this]);
+	}
+
 	public function getLikeObject()
 	{
 		return $this->gdo;
 	}
-	
+
 	/**
 	 * @return GDO_LikeTable
 	 */
@@ -31,10 +37,5 @@ class GDT_LikeCount extends GDT_VoteCount
 	{
 		return $this->gdo->gdoLikeTable();
 	}
-	
-	public function renderHTML() : string
-	{
-		return GDT_Template::php('Votes', 'cell/like_count.php', ['field'=>$this]);
-	}
-	
+
 }

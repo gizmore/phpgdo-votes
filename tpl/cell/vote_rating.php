@@ -1,22 +1,24 @@
 <?php
 namespace GDO\Votes\tpl\cell;
+
 use GDO\UI\GDT_Badge;
 use GDO\UI\GDT_Tooltip;
 use GDO\Votes\GDT_VoteRating;
-/** @var $field GDT_VoteRating **/
+
+/** @var $field GDT_VoteRating * */
 $gdo = $field->getVoteObject();
 if ($gdo && $gdo->isPersisted()) :
-?>
-<span id="<?=$field->getName()?>-vote-rating-<?=$gdo->getID()?>">
+	?>
+    <span id="<?=$field->getName()?>-vote-rating-<?=$gdo->getID()?>">
 <?php
 $votesNeeded = $gdo->gdoVoteTable()->gdoVotesBeforeOutcome();
 $votesHave = $gdo->getVoteCount();
 if ($votesHave >= $votesNeeded)
 {
-    $value = sprintf('%.01f', $gdo->getVoteRating());
+	$value = sprintf('%.01f', $gdo->getVoteRating());
 	echo GDT_Badge::make()->addClass('vote-rating')->value($value)->render();
 }
-else 
+else
 {
 	echo GDT_Tooltip::make()->addClass('vote-rating')->tooltip('tt_gdo_vote_open', [$votesHave, $votesNeeded])->renderHTML();
 }

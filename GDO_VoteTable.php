@@ -4,29 +4,37 @@ namespace GDO\Votes;
 use GDO\Core\GDO;
 use GDO\Core\GDT_CreatedAt;
 use GDO\Core\GDT_Object;
-use GDO\Net\GDT_IP;
-use GDO\User\GDT_User;
-use GDO\User\GDO_User;
 use GDO\Core\GDT_UInt;
+use GDO\Net\GDT_IP;
+use GDO\User\GDO_User;
+use GDO\User\GDT_User;
 
 /**
  * Override gdoVoteObjectTable with, e.g. return SomeGDO::table();
- * 
+ *
  * @author gizmore
  */
 class GDO_VoteTable extends GDO
 {
+
+	public function gdoVoteMax() { return 5; }
+
+	public function gdoVotesBeforeOutcome() { return 3; }
+
+	public function gdoVoteCooldown() { return 60 * 60 * 24; }
+
+	public function gdoVoteGuests() { return true; }
+
+	public function gdoCached(): bool { return false; }
+
+	public function gdoAbstract(): bool { return $this->gdoVoteObjectTable() === null; }
+
 	/**
 	 * @return GDO
 	 */
 	public function gdoVoteObjectTable() {}
-	public function gdoVoteMax() { return 5; }
-	public function gdoVotesBeforeOutcome() { return 3; }
-	public function gdoVoteCooldown() { return 60*60*24; }
-	public function gdoVoteGuests() { return true; }
-	public function gdoCached() : bool { return false; }
-	public function gdoAbstract() : bool { return $this->gdoVoteObjectTable() === null; }
-	public function gdoColumns() : array
+
+	public function gdoColumns(): array
 	{
 		return [
 			GDT_User::make('vote_user')->primary(),
@@ -36,17 +44,23 @@ class GDO_VoteTable extends GDO
 			GDT_CreatedAt::make('vote_created'),
 		];
 	}
+
 	/**
 	 * @return GDO_User
 	 */
 	public function getUser() { return $this->gdoValue('vote_user'); }
+
 	public function getUserID() { return $this->gdoVar('vote_user'); }
+
 	/**
 	 * @return GDO
 	 */
 	public function getObject() { return $this->gdoValue('vote_object'); }
+
 	public function getObjectID() { return $this->gdoVar('vote_object'); }
+
 	public function getIP() { return $this->gdoVar('vote_ip'); }
+
 	public function getScore() { return $this->gdoVar('vote_value'); }
 
 	################
@@ -55,11 +69,12 @@ class GDO_VoteTable extends GDO
 	/**
 	 * @param GDO_User $user
 	 * @param GDO $object
+	 *
 	 * @return self
 	 */
 	public function getVote(GDO_User $user, GDO $object)
 	{
 		return self::getById($user->getID(), $object->getID());
 	}
-	
+
 }

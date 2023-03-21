@@ -1,26 +1,26 @@
 <?php
 namespace GDO\Votes\Method;
 
+use GDO\Core\Application;
+use GDO\Core\GDO;
 use GDO\Core\GDT_CreatedBy;
 use GDO\Core\GDT_Object;
+use GDO\Core\GDT_Response;
 use GDO\Core\GDT_String;
 use GDO\Core\Method;
-use GDO\Core\GDO;
-use GDO\Core\GDT_Response;
 use GDO\UI\GDT_Redirect;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Votes\GDO_LikeTable;
 use GDO\Votes\GDT_LikeButton;
-use GDO\Core\Application;
 use GDO\Votes\Module_Votes;
 
 /**
  * The method to like an item.
  *
- * @author gizmore
  * @version 7.0.1
  * @since 5.0.0
+ * @author gizmore
  */
 class UnLike extends Method
 {
@@ -63,7 +63,7 @@ class UnLike extends Method
 	{
 		return call_user_func([
 			$this->getLikeTableClass(),
-			'table'
+			'table',
 		]);
 	}
 
@@ -78,18 +78,18 @@ class UnLike extends Method
 
 		# Get LikeTable, e.g. GDO_CommentLike
 		$class = $this->getLikeTableClass();
-		if ( !class_exists($class))
+		if (!class_exists($class))
 		{
 			return $this->error('err_vote_gdo');
 		}
-		if ( !is_subclass_of($class, 'GDO\\Vote\\GDO_LikeTable'))
+		if (!is_subclass_of($class, 'GDO\\Vote\\GDO_LikeTable'))
 		{
 			return $this->error('err_vote_table');
 		}
 		$table = GDO::tableFor($class);
 		$table instanceof GDO_LikeTable;
 
-		if (( !$user->isMember()) && ( !$table->gdoLikeForGuests()))
+		if ((!$user->isMember()) && (!$table->gdoLikeForGuests()))
 		{
 			return $this->error('err_members_only');
 		}
