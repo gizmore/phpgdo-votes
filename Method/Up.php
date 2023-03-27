@@ -3,6 +3,7 @@ namespace GDO\Votes\Method;
 
 use GDO\Core\Application;
 use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_JSON;
 use GDO\Core\GDT_Response;
 use GDO\Core\GDT_String;
@@ -43,7 +44,7 @@ final class Up extends Method
 		];
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$user = GDO_User::current();
 

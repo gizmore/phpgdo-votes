@@ -2,6 +2,7 @@
 namespace GDO\Votes;
 
 use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_Template;
 use GDO\UI\GDT_Button;
 use GDO\User\GDO_User;
@@ -19,7 +20,7 @@ class GDT_LikeButton extends GDT_Button
 
 	public function defaultLabel(): self { return $this->label('likes'); }
 
-	public function gdo(GDO $gdo = null): self
+	public function gdo(?GDO $gdo): GDT
 	{
 		parent::gdo($gdo);
 		$likeObject = $this->getLikeObject();
@@ -66,7 +67,7 @@ class GDT_LikeButton extends GDT_Button
 		]);
 	}
 
-	public function renderJSON()
+	public function renderJSON(): array|string|null
 	{
 		return [
 			'html' => $this->renderHTML(),

@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 namespace GDO\Votes;
 
 use GDO\Core\GDO_Module;
@@ -10,7 +11,7 @@ use GDO\Core\GDT_UInt;
  * @link https://www.evanmiller.org/how-not-to-sort-by-average-rating.html
  *
  * @author gizmore
- * @version 7.0.1
+ * @version 7.0.3
  */
 final class Module_Votes extends GDO_Module
 {
@@ -31,7 +32,7 @@ final class Module_Votes extends GDO_Module
 	/**
 	 * Store some stats in hidden settings.
 	 */
-	public function getUserConfig()
+	public function getUserConfig(): array
 	{
 		return [
 			GDT_UInt::make('likes')->initial('0'),

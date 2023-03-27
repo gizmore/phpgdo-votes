@@ -3,6 +3,7 @@ namespace GDO\Votes\Method;
 
 use GDO\Core\Application;
 use GDO\Core\GDO;
+use GDO\Core\GDT;
 use GDO\Core\GDT_CreatedBy;
 use GDO\Core\GDT_Object;
 use GDO\Core\GDT_Response;
@@ -72,7 +73,7 @@ class UnLike extends Method
 		return $this->gdoParameterVar('gdo');
 	}
 
-	public function execute()
+	public function execute(): GDT
 	{
 		$user = GDO_User::current();
 

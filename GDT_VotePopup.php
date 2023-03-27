@@ -15,13 +15,18 @@ final class GDT_VotePopup extends GDT_Button
 
 	public $level = 0;
 
+//	public function getDefaultName(): ?string
+//	{
+//		return 'vote';
+//	}
+
 	public function level($level)
 	{
 		$this->level = $level;
 		return $this;
 	}
 
-	public function renderHTML(): string
+	public function renderCell(): string
 	{
 		return GDT_Template::php('Votes', 'cell/vote_popup.php', ['field' => $this]);
 	}
