@@ -20,7 +20,7 @@ class GDT_LikeButton extends GDT_Button
 
 	public function defaultLabel(): self { return $this->label('likes'); }
 
-	public function gdo(?GDO $gdo): GDT
+	public function gdo(?GDO $gdo): static
 	{
 		parent::gdo($gdo);
 		$likeObject = $this->getLikeObject();
