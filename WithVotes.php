@@ -63,7 +63,7 @@ trait WithVotes
 	{
 		$votes = $this->gdoVoteTable();
 		$votes instanceof GDO_VoteTable;
-		return $votes->select('AVG(vote_value)')->where('vote_object=' . $this->getID())->exec()->fetchValue();
+		return $votes->select('AVG(vote_value)')->where('vote_object=' . $this->getID())->exec()->fetchVar();
 	}
 
 	public function displayVoteCount()
