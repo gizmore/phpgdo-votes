@@ -67,7 +67,7 @@ class GDT_LikeButton extends GDT_Button
 		]);
 	}
 
-	public function renderJSON(): array|string|null
+	public function renderJSON(): array|string|null|int|bool|float
 	{
 		return [
 			'html' => $this->renderHTML(),
