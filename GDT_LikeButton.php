@@ -18,7 +18,8 @@ class GDT_LikeButton extends GDT_Button
 		$this->icon('like');
 	}
 
-	public function defaultLabel(): self { return $this->label('likes'); }
+	public function gdtDefaultLabel(): ?string
+    { return 'likes'; }
 
 	public function gdo(?GDO $gdo): static
 	{

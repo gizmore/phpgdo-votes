@@ -15,7 +15,7 @@ final class GDT_VotePopup extends GDT_Button
 
 	public $level = 0;
 
-//	public function getDefaultName(): ?string
+//	public function gdtDefaultName(): ?string
 //	{
 //		return 'vote';
 //	}

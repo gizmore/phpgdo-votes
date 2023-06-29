@@ -21,7 +21,8 @@ final class GDT_VoteRating extends GDT_Decimal
 		$this->initial('0');
 	}
 
-	public function defaultLabel(): self { return $this->label('rating'); }
+	public function gdtDefaultLabel(): ?string
+    { return 'rating'; }
 
 	public function isDefaultAsc(): bool { return false; }
 

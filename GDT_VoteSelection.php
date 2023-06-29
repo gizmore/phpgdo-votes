@@ -18,9 +18,9 @@ final class GDT_VoteSelection extends GDT
 	use WithGDO;
 	use WithLabel;
 
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('vote');
+		return 'vote';
 	}
 
 	public function configJSON(): array

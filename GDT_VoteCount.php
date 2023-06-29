@@ -30,9 +30,9 @@ class GDT_VoteCount extends GDT_UInt
 		return false;
 	}
 
-	public function defaultLabel(): self
+	public function gdtDefaultLabel(): ?string
 	{
-		return $this->label('votes');
+		return 'votes';
 	}
 
 	public function renderHTML(): string
