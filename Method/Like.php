@@ -28,8 +28,6 @@ use GDO\Votes\Module_Votes;
 class Like extends Method
 {
 
-	public function isCLI(): bool { return false; }
-
 	public function isTrivial(): bool { return false; }
 
 	public function isUserRequired(): bool { return true; }

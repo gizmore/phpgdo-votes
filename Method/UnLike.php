@@ -26,11 +26,6 @@ use GDO\Votes\Module_Votes;
 class UnLike extends Method
 {
 
-	public function isCLI(): bool
-	{
-		return false;
-	}
-
 	public function isTrivial(): bool
 	{
 		return false;
