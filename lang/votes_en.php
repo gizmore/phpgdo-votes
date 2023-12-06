@@ -7,6 +7,7 @@ return [
 	'err_vote_ip' => 'Your IP already has been voting for this recently.',
 	'err_vote_guest' => 'Guests are not allowed to vote for this.',
 	'err_vote_gdo' => 'The object to rate could not been found.',
+    'err_vote_table' => 'The voting table could not been found.',
 	'votes' => 'Votes',
 	'rating' => 'Rating',
 	'tt_gdo_vote_open' => 'There have been %s/%s votes yet.',

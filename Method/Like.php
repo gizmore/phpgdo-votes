@@ -43,11 +43,16 @@ class Like extends Method
 	{
 		return [
 			GDT_String::make('gdo')->notNull(),
-			GDT_Object::make('id')->table($this->getLikeTable())->notNull(),
+			GDT_Object::make('id')->notNull(),
 		];
 	}
 
-	/**
+    protected function afterAddCompose(): void
+    {
+        $this->gdoParameter('id', false)->table($this->getLikeTable());
+    }
+
+    /**
 	 * @return GDO_LikeTable
 	 */
 	public function getLikeTable()
@@ -70,7 +75,7 @@ class Like extends Method
 		{
 			return $this->error('err_vote_gdo');
 		}
-		if (!is_subclass_of($class, 'GDO\\Vote\\GDO_LikeTable'))
+		if (!is_subclass_of($class, GDO_LikeTable::class))
 		{
 			return $this->error('err_vote_table');
 		}
@@ -86,7 +91,7 @@ class Like extends Method
 		$objects = $table->gdoLikeObjectTable();
 
 		# Get GDO row, e.g. Link
-		$object = $objects->find(Common::getRequestString('id'));
+		$object = $objects->find($this->getInputFor('id'));
 
 		if (!$object->gdoCanLike($user))
 		{

@@ -52,7 +52,7 @@ trait WithLikes
 	{
 		$likes = $this->gdoLikeTable();
 		$likes instanceof GDO_LikeTable;
-		return $likes->countWhere('like_object=' . $this->getID());
+		return (string) $likes->countWhere('like_object=' . $this->getID());
 	}
 
 	public function getLikeCount()
