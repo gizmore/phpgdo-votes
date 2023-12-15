@@ -50,7 +50,7 @@ final class GDT_VoteSelection extends GDT
 
 	public function hrefVote()
 	{
-		return href('Votes', 'Up', '&gdo=' . urlencode($this->voteTable()->gdoClassName()) . '&id=' . $this->gdo->getID());
+		return hrefNoSeo('Votes', 'Up', '&gdo=' . urlencode($this->voteTable()->gdoClassName()) . '&id=' . $this->gdo->getID());
 	}
 
 	/**
