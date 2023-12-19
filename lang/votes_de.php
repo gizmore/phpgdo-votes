@@ -30,4 +30,7 @@ return [
 	'err_not_liked' => 'Sie können Ihren Like nicht zurücknehmen.',
 	'msg_liked' => 'Du magst das!',
 	'msg_disliked' => 'Du magst das nicht!',
+    'btn_likes' => 'gefällt das',
+    'btn_dislikes' => 'gefällt das nicht',
+
 ];

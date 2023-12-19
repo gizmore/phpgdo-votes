@@ -29,4 +29,6 @@ return [
 	'err_not_liked' => 'You cannot unlike something you did not like.',
 	'msg_liked' => 'You like this!',
 	'msg_disliked' => 'You dislike this!',
+    'btn_likes' => 'Likes',
+    'btn_dislikes' => 'Dislikes',
 ];

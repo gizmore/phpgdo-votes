@@ -23,12 +23,19 @@ trait WithLikes
 		return true;
 	}
 
-	public function hasLiked(GDO_User $user)
-	{
-		return !!$this->getLike($user);
-	}
+    public function hasLiked(GDO_User $user)
+    {
+        $like = $this->getLike($user);
+        return $like === null ? false : $like->isPositive();
+    }
 
-	public function getLike(GDO_User $user)
+    public function hasDisliked(GDO_User $user)
+    {
+        $like = $this->getLike($user);
+        return $like === null ? false : $like->isNegative();
+    }
+
+    public function getLike(GDO_User $user)
 	{
 		$likes = $this->gdoLikeTable();
 		$likes instanceof GDO_LikeTable;
@@ -44,27 +51,50 @@ trait WithLikes
 			{
 				$vars[$gdt->name] = $this->queryLikeCount();
 			}
+            elseif ($gdt instanceof GDT_DislikeCount)
+            {
+                $vars[$gdt->name] = $this->queryDislikeCount();
+            }
 		}
 		return $this->saveVars($vars, false);
 	}
 
-	public function queryLikeCount()
-	{
-		$likes = $this->gdoLikeTable();
-		$likes instanceof GDO_LikeTable;
-		return (string) $likes->countWhere('like_object=' . $this->getID());
-	}
+    public function queryLikeCount()
+    {
+        $likes = $this->gdoLikeTable();
+        $likes instanceof GDO_LikeTable;
+        return (string) $likes->countWhere("like_object={$this->getID()} and like_score=1");
+    }
 
-	public function getLikeCount()
-	{
-		foreach ($this->gdoColumnsCache() as $gdt)
-		{
-			if ($gdt instanceof GDT_LikeCount)
-			{
-				return $this->gdoVar($gdt->name);
-			}
-		}
-		return $this->queryLikeCount();
-	}
+    public function queryDislikeCount()
+    {
+        $likes = $this->gdoLikeTable();
+        $likes instanceof GDO_LikeTable;
+        return (string) $likes->countWhere("like_object={$this->getID()} and like_score=-1");
+    }
+
+    public function getLikeCount()
+    {
+        foreach ($this->gdoColumnsCache() as $gdt)
+        {
+            if ($gdt instanceof GDT_LikeCount)
+            {
+                return $this->gdoVar($gdt->name);
+            }
+        }
+        return $this->queryLikeCount();
+    }
+
+    public function getDislikeCount()
+    {
+        foreach ($this->gdoColumnsCache() as $gdt)
+        {
+            if ($gdt instanceof GDT_DislikeCount)
+            {
+                return $this->gdoVar($gdt->name);
+            }
+        }
+        return $this->queryDislikeCount();
+    }
 
 }

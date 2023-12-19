@@ -27,12 +27,12 @@ use GDO\Votes\Module_Votes;
  * @since 5.0.0
  * @author gizmore
  */
-class Like extends Method
+class Dislike extends Like
 {
 
     protected function getLikeScore(): int
     {
-        return 1;
+        return -1;
     }
 
     public function isTrivial(): bool { return false; }

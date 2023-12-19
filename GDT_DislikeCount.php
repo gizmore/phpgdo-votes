@@ -8,20 +8,13 @@ use GDO\Core\GDT_Template;
  *
  * @author gizmore
  */
-class GDT_LikeCount extends GDT_VoteCount
+class GDT_DislikeCount extends GDT_VoteCount
 {
-    public bool $dislikes = false;
-    public function dislikes(bool $dislikes=true): static
-    {
-        $this->dislikes = $dislikes;
-        return $this;
-    }
-
 	public bool $writeable = false;
 
 	public function gdtDefaultLabel(): ?string
     {
-        return 'likes';
+        return 'dislikes';
     }
 
 	public function isTestable(): bool
@@ -31,7 +24,7 @@ class GDT_LikeCount extends GDT_VoteCount
 
 	public function renderHTML(): string
 	{
-		return GDT_Template::php('Votes', 'cell/like_count.php', ['field' => $this]);
+		return GDT_Template::php('Votes', 'cell/dislike_count.php', ['field' => $this]);
 	}
 
 	public function getLikeObject()
