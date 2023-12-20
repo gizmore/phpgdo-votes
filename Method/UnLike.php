@@ -3,6 +3,9 @@ namespace GDO\Votes\Method;
 
 use GDO\Core\Application;
 use GDO\Core\GDO;
+use GDO\Core\GDO_ArgError;
+use GDO\Core\GDO_DBException;
+use GDO\Core\GDO_Exception;
 use GDO\Core\GDT;
 use GDO\Core\GDT_CreatedBy;
 use GDO\Core\GDT_Object;
@@ -50,10 +53,17 @@ class UnLike extends Method
 	{
 		return [
 			GDT_String::make('gdo')->notNull(),
-			GDT_Object::make('id')->table($this->getLikeTable())
-				->notNull(),
+			GDT_Object::make('id')->notNull(),
 		];
 	}
+
+    /**
+     * @throws GDO_ArgError
+     */
+    protected function afterAddCompose(): void
+    {
+        $this->gdoParameter('id', false)->table($this->getLikeTable());
+    }
 
 	public function getLikeTable(): GDO_LikeTable
 	{
@@ -63,12 +73,19 @@ class UnLike extends Method
 		]);
 	}
 
-	public function getLikeTableClass(): string
-	{
+    /**
+     * @throws GDO_ArgError
+     */
+    public function getLikeTableClass(): string
+    {
 		return $this->gdoParameterVar('gdo');
 	}
 
-	public function execute(): GDT
+    /**
+     * @throws GDO_DBException
+     * @throws GDO_Exception
+     */
+    public function execute(): GDT
 	{
 		$user = GDO_User::current();
 
@@ -76,9 +93,10 @@ class UnLike extends Method
 		$class = $this->getLikeTableClass();
 		if (!class_exists($class))
 		{
+            die ($class);
 			return $this->error('err_vote_gdo');
 		}
-		if (!is_subclass_of($class, 'GDO\\Vote\\GDO_LikeTable'))
+		if (!is_subclass_of($class, 'GDO\\Votes\\GDO_LikeTable'))
 		{
 			return $this->error('err_vote_table');
 		}
