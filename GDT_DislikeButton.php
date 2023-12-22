@@ -26,7 +26,7 @@ class GDT_DislikeButton extends GDT_Button
 		parent::gdo($gdo);
 		$likeObject = $this->getLikeObject();
 		$likeTable = $this->getLikeTable();
-		$hasLiked = $likeObject->hasLiked(GDO_User::current());
+		$hasLiked = $likeObject->hasDisliked(GDO_User::current());
 		$method = $hasLiked ? 'UnLike' : 'Dislike';
 		$this->href = hrefNoSeo('Votes', $method, "&gdo={$likeTable->gdoClassName()}&id={$likeObject->getID()}");
 // 		$this->editable(!$gdo->hasLiked(GDO_User::current()));
@@ -65,8 +65,10 @@ class GDT_DislikeButton extends GDT_Button
 	public function renderJSON(): array|string|null|int|bool|float
 	{
 		return [
-			'html' => $this->renderHTML(),
-			'count' => $this->getLikeObject()->getDislikeCount(),
+            'html_like' => GDT_LikeButton::make()->gdo($this->gdo)->renderHTML(),
+            'html_dislike' => $this->renderHTML(),
+            'count_like' => $this->getLikeObject()->getLikeCount(),
+            'count_dislike' => $this->getLikeObject()->getDislikeCount(),
 		];
 	}
 

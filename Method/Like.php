@@ -17,6 +17,7 @@ use GDO\UI\GDT_Redirect;
 use GDO\User\GDO_User;
 use GDO\Util\Common;
 use GDO\Votes\GDO_LikeTable;
+use GDO\Votes\GDT_DislikeButton;
 use GDO\Votes\GDT_LikeButton;
 use GDO\Votes\Module_Votes;
 
@@ -92,8 +93,8 @@ class Like extends Method
 		{
 			return $this->error('err_vote_table');
 		}
+        /** @var GDO_LikeTable $table */
 		$table = GDO::tableFor($class);
-		$table instanceof GDO_LikeTable;
 
 		if ((!$user->isMember()) && (!$table->gdoLikeForGuests()))
 		{
@@ -112,11 +113,11 @@ class Like extends Method
 		}
 
 		# Check IP count
-		$count = $table->countWhere(sprintf("like_object=%s AND like_ip='%s'", $object->getID(), GDT_IP::current()));
-		if ($count >= $table->gdoMaxLikeCount())
-		{
-			return $this->error('err_vote_ip');
-		}
+//		$count = $table->countWhere(sprintf("like_object=%s AND like_ip='%s'", $object->getID(), GDT_IP::current()));
+//		if ($count >= $table->gdoMaxLikeCount())
+//		{
+//			return $this->error('err_vote_ip');
+//		}
 
 		# Check user count
 //		$count = $table->countWhere(sprintf("like_object=%s AND like_user='%s'", $object->getID(), $user->getID()));
@@ -136,6 +137,7 @@ class Like extends Method
 //			return $this->error('err_vote_frequency', [Time::humanDuration($table->gdoLikeCooldown())]);
 //		}
 
+        /** @var GDO_LikeTable $like */
 		# Vote
 		$like = $class::blank([
 			'like_user' => $user->getID(),
@@ -143,28 +145,38 @@ class Like extends Method
             'like_score' => $this->getLikeScore(),
 			'like_ip' => GDT_IP::current(),
 		]);
-		$like instanceof GDO_LikeTable;
 		$like->softReplace();
 
 		# Update cache
 		$object->updateLikes();
 
 		# Update user likes
-		if ($otherUser = $object->gdoColumnOf(GDT_CreatedBy::class))
-		{
-			$otherUser = $otherUser->getValue();
-			Module_Votes::instance()->increaseUserSetting($otherUser, 'likes');
-		}
+//		if ($otherUser = $object->gdoColumnOf(GDT_CreatedBy::class))
+//		{
+//			$otherUser = $otherUser->getValue();
+//			Module_Votes::instance()->saveUserSetting($otherUser, 'likes');
+//		}
 
 		if (Application::instance()->isCLI())
 		{
 			return $this->message('msg_liked');
 		}
 
-		return GDT_Response::makeWith(
-			GDT_LikeButton::make('likes')->gdo($object),
-			GDT_Redirect::to(GDT_Redirect::hrefBack()),
-		);
+        if ($this->getLikeScore() < 0)
+        {
+            return GDT_Response::makeWith(
+                GDT_DislikeButton::make('likes')->gdo($object),
+                GDT_Redirect::to(GDT_Redirect::hrefBack()),
+            );
+        }
+        else
+        {
+            return GDT_Response::makeWith(
+                GDT_LikeButton::make('likes')->gdo($object),
+                GDT_Redirect::to(GDT_Redirect::hrefBack()),
+            );
+        }
+
 	}
 
 }

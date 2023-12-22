@@ -64,9 +64,12 @@ class GDT_LikeButton extends GDT_Button
 
 	public function renderJSON(): array|string|null|int|bool|float
 	{
+        $dislike = GDT_DislikeButton::make()->gdo($this->gdo);
 		return [
-			'html' => $this->renderHTML(),
-			'count' => $this->getLikeObject()->getLikeCount(),
+			'html_like' => $this->renderHTML(),
+            'html_dislike' => $dislike->renderHTML(),
+            'count_like' => $this->getLikeObject()->getLikeCount(),
+            'count_dislike' => $this->getLikeObject()->getDislikeCount(),
 		];
 	}
 
