@@ -29,7 +29,7 @@ class GDT_DislikeButton extends GDT_Button
 		$hasLiked = $likeObject->hasDisliked(GDO_User::current());
 		$method = $hasLiked ? 'UnLike' : 'Dislike';
 		$this->href = hrefNoSeo('Votes', $method, "&gdo={$likeTable->gdoClassName()}&id={$likeObject->getID()}");
-// 		$this->editable(!$gdo->hasLiked(GDO_User::current()));
+ 		$this->writeable($likeObject->gdoCanLike(GDO_User::current()));
 		return $this;
 	}
 
