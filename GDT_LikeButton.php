@@ -14,6 +14,7 @@ class GDT_LikeButton extends GDT_Button
 	{
 		parent::__construct();
 		$this->icon('like');
+        $this->noFollow();
 	}
 
 	public function gdtDefaultLabel(): ?string
